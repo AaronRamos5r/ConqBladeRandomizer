@@ -1,0 +1,153 @@
+import random
+
+units = {
+    #Rustic
+    'Village Watchmen': 30,
+    'Martellatori': 30,
+    'Woodcutter': 40,
+    'Tenant Farmers': 40,
+    'Serfs': 40,
+    'Sword Militia': 65,
+    'Demesne Pikemen': 70,
+    'Spear Militia': 80,
+    'Levy Bowmen': 80,
+    'Archer Militia': 75,
+    #Chivalric
+    'Black Dragon Archer': 60,
+    'Sea Stag Deathdealers': 80,
+    'Ironcap Bowriders': 90,
+    'Demesne Archers': 90,
+    'Ironcap Scout Cavalry': 95,
+    'Demesne Spearmen': 105,
+    'Demesne Javelineers': 105,
+    'Javelin Militia': 105,
+    'Demesne Crossbowmen': 110,
+    'Ironcap Archers': 110,
+    "Rattan Roundshields": 115,
+    'Rattan Pikemen': 95,
+    'Ironcap Swordsmen': 100,
+    'Coutiliers': 115,
+    'Pike Militia': 110,
+    'Ironcap Arquebusiers': 120,
+    #Silver
+    'Black Dragon Javelineers': 80,
+    'Black Dragon Pikemen': 80,
+    'Black Dragon Spearmen': 80,
+    'Bagpipers': 90,
+    'Alchemists': 90,
+    'Khorchins': 140,
+    'Cudgel Monks': 145,
+    'Ronin': 145,
+    'Selemchid Cavalry': 150,
+    'Vanguard Archers': 150,
+    'Ironcap Spearmen': 150,
+    'Mace Sergeants': 150,
+    'Rattan Vipers': 155,
+    'Squires': 155,
+    'Schutzdieners': 155,
+    'Condottieri Guards': 160,
+    'Demesne Arbalists': 160,
+    'Halberdiers': 165,
+    'Prefecture Pikemen': 165,
+    'Landsknechts': 165,
+    'Sons of Fenrir': 165,
+    'Dimachaeri': 165,
+    'Demesne Arquebusiers': 170,
+    'Prefecture Guards': 170,
+    'Jangjus': 170,
+    'Rattan Marksmen': 175,
+    'Zykalian Militia': 175,
+    'Incendiary Archers': 180,
+    'Namkhan Archers': 180,
+    'Prefecture Archers': 180,
+    'Janissaries': 180,
+    'Wuxing Pikemen': 155,
+    'Outriders': 180,
+    'Caradoc Riders': 195,
+    #Heroic
+    'Spear Sergeants': 215,
+    'Men-at-Arms': 215,
+    'Khevtuul Cavalry': 215,
+    'Sipahis': 215,
+    'Yeomen': 225,
+    'Prefecture Heavy Cavalry': 225,
+    'Tseregs': 225,
+    'Azap': 225,
+    'Banner Guard': 225,
+    'Halberdier Sergeants': 230,
+    'Palace Guards': 230,
+    'Javelin Sergeants': 230,
+    'Greyhair Garrison': 230,
+    'Axe Raiders': 230,
+    'Huskarls': 230,
+    'Fortebraccio Pikemen': 235,
+    'Imperial Archers': 235,
+    'Symmachean Paladins': 235,
+    'Armiger Lancers': 235,
+    'Claymores': 235,
+    'Camel Lancers': 235,
+    'Onna-musha': 235,
+    'Imperial Pike Guards': 240,
+    'Imperial Spear Guards': 240,
+    'Imperial Javelineers': 240,
+    'Symmachean Stalwarts': 240,
+    'Dagger Axe Lancers': 245,
+    'Vassal Longbowmen': 245,
+    'Kriegsrat Fusiliers': 245,
+    'Imperial Arquebusiers': 245,
+    'Berserkers': 245,
+    'Myrmillones': 245,
+    'Kriegsbruders': 245,
+    'Crecent Monks': 250,
+    'Royal Guards': 225,
+    #Golden
+    'Pavise Crossbowmen': 280,
+    'Tercio Arquebusiers': 280,
+    'Fire Lancers': 285,
+    'Varangian Guards': 290,
+    'Rattan Rangers': 295,
+    'Monsastic Knights':295,
+    'Hashashins': 295,
+    'Orochi Samurai': 295,
+    'Iron Reapers': 300,
+    'Kheshigs': 300,
+    'Silahdars': 300,
+    'Zweihanders': 300,
+    'Cataphract Lancers': 305,
+    'Winger Hussars': 305,
+    'Retiarii': 305,
+    'Shieldmaidens': 310,
+    'Modao Battalion': 310,
+    'Houndsmen': 310,
+    'Siphonarioi':315,
+    'Liaos Rangers': 315,
+    'Shenju Grenadiers': 315,
+    'Falconetti Gunners': 320,
+    'Yanyuedao Cavalry': 320,
+    'Chevaliers': 340,
+    'Queens Knights': 295,
+             }
+
+max_units = 10
+def draw_unit(user_points, units, drawn_units):
+    if len(drawn_units) >= max_units:
+        return None, user_points
+    available_units = [unit for unit, points in units.items() if points <= user_points]
+    if available_units:
+        drawn_unit = random.choice(available_units)
+        user_points -= units[drawn_unit]
+        drawn_units.append(drawn_unit)
+        del units[drawn_unit]
+        return drawn_unit, user_points
+    else:
+        return None, user_points
+
+user_points = int(input('Enter your leadership points: '))
+drawn_units = []
+while True:
+    drawn_unit, user_points = draw_unit(user_points, units, drawn_units)
+    if drawn_unit:
+        print(f'You drew {drawn_unit}. Remainder {user_points}.')
+    else:
+        print('No units can be drawn.')
+        break
